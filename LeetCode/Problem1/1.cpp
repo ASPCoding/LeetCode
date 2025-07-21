@@ -1,20 +1,21 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> solution;
-        for(int i = 0; i < nums.size(); ++i){
-            for(int j = i + 1; j < nums.size(); ++j){
-                if(i == j){
-                    continue;
-                }
-                else{
-                    if(nums[i] + nums[j] == target){
-                        solution.push_back(i);
-                        solution.push_back(j);
-                    }
-                }
+        unordered_map<int, int> complementMap;
+        //unordered map is used here because using a map will use more memory because
+        //it holds unnecessary data
+        int length = nums.size();
+
+        for(int i = 0; i < length; ++i){
+            int complement = target - nums[i];
+            if (complementMap.count(complement)) {
+                // the .count method returns how many times the item appears in the map
+                //This means if the complement exists, the condition evals to true
+                return {complementMap[complement], i};
             }
+            complementMap[nums[i]] = i;
         }
-        return solution;
+
+        return {};
     }
 };
