@@ -1,8 +1,6 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        vector<int> num;
-        int length;
         if(x < 0){
             return false;
         }
@@ -10,20 +8,17 @@ public:
             return true;
         }
         else{
-            for(int i = x;i != 0; i /= 10){
-                num.push_back(i%10);
+            int x_copy = x;
+            long reversed = 0;
+            while(x_copy !=0){
+                reversed *= 10;
+                reversed += x_copy % 10;
+                x_copy /= 10;
             }
-            length = num.size()/2;
-            auto i = num.begin();
-            auto j = num.end() - 1;
-            for(int index = 0; index < length; ++index){
-                if(*i != *j){
-                    return false;
-                }
-                ++i;
-                --j;
+            if(reversed == x){
+                return true;
             }
-            return true;
+            return false;
         }
     }
 };
